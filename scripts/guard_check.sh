@@ -110,10 +110,6 @@ if [ "$DEBUG" = "true" ] || [ "$STATUS_OK" -ne 1 ]; then
 
     {
         echo '```'
-        echo "=================================================="
-        echo "SERVER IP: ${SERVER_IP}"
-        echo "=================================================="
-        echo
 
         if [ "$DEBUG" = "true" ]; then
             # DEBUG mode: send full output
