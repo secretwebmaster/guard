@@ -112,10 +112,15 @@ if [ "$DEBUG" = "true" ] || [ "$STATUS_OK" -ne 1 ]; then
         echo '```'
 
         if [ "$DEBUG" = "true" ]; then
-            # DEBUG mode: send full output
+            # DEBUG mode: send full output (already includes SERVER IP)
             cat "$TMP_LOG"
         else
-            # Non-debug: send only failed file blocks
+            # Non-debug: send SERVER IP once + failed file blocks
+            echo "=================================================="
+            echo "SERVER IP: ${SERVER_IP}"
+            echo "=================================================="
+            echo
+
             for f in "${FAILED_FILES[@]}"; do
                 awk -v file="$f" '
                     $0 ~ "^FILE[[:space:]]+:[[:space:]]+" file "$" { show=1 }
@@ -127,6 +132,7 @@ if [ "$DEBUG" = "true" ] || [ "$STATUS_OK" -ne 1 ]; then
 
             echo "FINAL RESULT: CHECK FAILED"
         fi
+
 
         echo '```'
     } > "$TMP_MSG"
